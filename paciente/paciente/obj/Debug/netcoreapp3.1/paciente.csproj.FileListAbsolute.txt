@@ -1,0 +1,14 @@
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\bin\Debug\netcoreapp3.1\paciente.exe
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\bin\Debug\netcoreapp3.1\paciente.deps.json
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\bin\Debug\netcoreapp3.1\paciente.runtimeconfig.json
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\bin\Debug\netcoreapp3.1\paciente.runtimeconfig.dev.json
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\bin\Debug\netcoreapp3.1\paciente.dll
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\bin\Debug\netcoreapp3.1\paciente.pdb
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\obj\Debug\netcoreapp3.1\paciente.csproj.AssemblyReference.cache
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\obj\Debug\netcoreapp3.1\paciente.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\obj\Debug\netcoreapp3.1\paciente.AssemblyInfoInputs.cache
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\obj\Debug\netcoreapp3.1\paciente.AssemblyInfo.cs
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\obj\Debug\netcoreapp3.1\paciente.csproj.CoreCompileInputs.cache
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\obj\Debug\netcoreapp3.1\paciente.dll
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\obj\Debug\netcoreapp3.1\paciente.pdb
+C:\Users\pc-Estudiante\source\repos\paciente\paciente\obj\Debug\netcoreapp3.1\paciente.genruntimeconfig.cache
