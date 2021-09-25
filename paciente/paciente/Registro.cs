@@ -168,7 +168,7 @@ namespace Modelodelparcial
 					
 				} while ((OP != 'S') && (OP != 'N'));
 
-				escribir.WriteLine("DIgnostico: " + Pacientes[NRO].DIAGNOSTICO,"cedula"+Pacientes[NRO].CEDULA);
+				
 			}
 			
 			escribir.Close();
