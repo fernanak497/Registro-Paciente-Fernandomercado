@@ -1,19 +1,20 @@
 ﻿using System;
+using System.Text;
 using System.IO;
 namespace Modelodelparcial
 {
-	
+
 	class Program
 	{
-	
+
 		struct DATOS
 		{
-			public int CEDULA;
+			public string CEDULA;
 			public string NOMBRE;
 			public int TEL;
 			public char SEXO;
 			public string DIAGNOSTICO;
-			
+
 
 		}
 
@@ -39,33 +40,29 @@ namespace Modelodelparcial
 					case 2:
 						CONSULTA_LISTADO();
 
-						break;
+					     break;
 					case 3:
-						CONSULTA_SELECTIVA();
-
-						break;
-					case 4:
 						ELIMINAR();
 
 						break;
-					case 5:
+					case 4:
 						MODIFICAR();
 
 						break;
-					case 6:
+					case 5:
 						OP = 'N';
-						
+
 						break;
-						
+
 
 				}
-				
+
 			}
 		}
 
 		static int MENU()
 		{
-	
+
 			int OPCION;
 
 			Console.Clear();
@@ -78,21 +75,20 @@ namespace Modelodelparcial
 			System.Console.SetCursorPosition(29, 11);
 			Console.WriteLine("1. Registro Del Paciente");
 			System.Console.SetCursorPosition(29, 12);
-			Console.WriteLine("2. CONSULTA  TIPO LISTADO");
+			Console.WriteLine("2. CONSULTA  REGISTRO ");
 			System.Console.SetCursorPosition(29, 13);
-			Console.WriteLine("3. CONSULTA SELECTIVA");
+			Console.WriteLine("3. ELIMINAR ");
 			System.Console.SetCursorPosition(29, 14);
-			Console.WriteLine("4. ELIMINAR ");
+			Console.WriteLine("4. MODIFICAR ");
 			System.Console.SetCursorPosition(29, 15);
-			Console.WriteLine("5. MODIFICAR ");
-			System.Console.SetCursorPosition(29, 17);
-			Console.WriteLine("6. SALIR");
+			Console.WriteLine("5. SALIR");
 
 			do
 			{
 				System.Console.SetCursorPosition(22, 20);
 				Console.WriteLine("SELECIONE UNA DE LAS ALTERNATIVAS : ");
-				System.Console.SetCursorPosition(57, 20); OPCION = int.Parse(Console.ReadLine());
+				System.Console.SetCursorPosition(57, 20); 
+				OPCION = int.Parse(Console.ReadLine());
 				System.Console.SetCursorPosition(30, 22);
 				Console.WriteLine("VALOR FUERA DE RANGO");
 			} while ((OPCION < 1) || (OPCION > 6));
@@ -101,18 +97,20 @@ namespace Modelodelparcial
 			return OPCION;
 
 		}
-		
+
 		static void CREAR()
-			
+
 		{
-			
-			StreamWriter escribir = File.AppendText("datos.txt");
-			
+			TextWriter escribir;
+			escribir = new StreamWriter("datos.txt");
+
 			char OP = 'S';
+			int SW;
 			
+
 			while ((OP == 'S') && (NRO < 100))
+
 			{
-				escribir.WriteLine("   REGISTRO PACIENTE" + (NRO + 1));
 				Console.Clear();
 				System.Console.SetCursorPosition(20, 6); Console.WriteLine("REGISTRAR PACIENTE");
 				System.Console.SetCursorPosition(20, 11); Console.WriteLine("CEDULA   : ");
@@ -120,26 +118,36 @@ namespace Modelodelparcial
 				System.Console.SetCursorPosition(20, 15); Console.WriteLine("TELEFONO : ");
 				System.Console.SetCursorPosition(20, 17); Console.WriteLine("SEXO     : ");
 				System.Console.SetCursorPosition(20, 19); Console.WriteLine("DIAGNOSTICO    : ");
-				do
+
+				Console.SetCursorPosition(31, 11); Pacientes[NRO].CEDULA = Console.ReadLine();
+				SW = 0;
+				for (int K = 0; K < NRO & SW == 0; K++)
 				{
-					System.Console.SetCursorPosition(31, 11);
-					Pacientes[NRO].CEDULA = int.Parse(Console.ReadLine());
+					do
+					{
+						if (Pacientes[NRO].CEDULA == Pacientes[K].CEDULA)
+						{
+							SW = 1;
+							Console.SetCursorPosition(15, 23); Console.WriteLine(" YA SE ENCUENTRA REGISTRADO");
+							Console.ReadKey();
+							Console.SetCursorPosition(15, 23); Console.WriteLine("                                   ");
+							Console.SetCursorPosition(31, 11); Console.WriteLine("                           ");
+							Console.SetCursorPosition(31, 11); Pacientes[NRO].CEDULA = Console.ReadLine();
 
-					escribir.WriteLine("CEDULA: " + Pacientes[NRO].CEDULA);
+						}
+					} while (Pacientes[NRO].CEDULA == Pacientes[K].CEDULA);
 
-					System.Console.SetCursorPosition(20, 24); Console.WriteLine("Error .... valor fuera de rango ");
-				} while (Pacientes[NRO].CEDULA < 0);
-				System.Console.SetCursorPosition(20, 24); Console.WriteLine("                                   ");
+
+				}
+
 
 				System.Console.SetCursorPosition(31, 13);
 				Pacientes[NRO].NOMBRE = Console.ReadLine();
-				escribir.WriteLine("NOMBRE " + Pacientes[NRO].NOMBRE);
 				System.Console.SetCursorPosition(31, 13); Console.WriteLine((Pacientes[NRO].NOMBRE));
 				do
 				{
 					System.Console.SetCursorPosition(31, 15);
 					Pacientes[NRO].TEL = int.Parse(Console.ReadLine());
-					escribir.WriteLine("NUMERO DE TELEFONO: " + Pacientes[NRO].TEL);
 					System.Console.SetCursorPosition(20, 24); Console.WriteLine("Error .... valor fuera de rango ");
 				} while (Pacientes[NRO].TEL < 0);
 				System.Console.SetCursorPosition(20, 24); Console.WriteLine("                                   ");
@@ -147,125 +155,64 @@ namespace Modelodelparcial
 				{
 					System.Console.SetCursorPosition(31, 17); Console.WriteLine(" ");
 					System.Console.SetCursorPosition(20, 24); Console.WriteLine(" Digite : M-> Masculino o F -> Femenino ");
-					System.Console.SetCursorPosition(31, 17); Pacientes[NRO].SEXO = char.Parse(Console.ReadLine());
+					System.Console.SetCursorPosition(31, 17); 
+					Pacientes[NRO].SEXO = char.Parse(Console.ReadLine());
 					Pacientes[NRO].SEXO = (Pacientes[NRO].SEXO);
-					escribir.WriteLine("SEXO: " + Pacientes[NRO].SEXO);
+
 				} while ((Pacientes[NRO].SEXO != 'M') && (Pacientes[NRO].SEXO != 'F'));
 				System.Console.SetCursorPosition(20, 24); Console.WriteLine("                                              ");
-				
 				System.Console.SetCursorPosition(37, 19);
 				Pacientes[NRO].DIAGNOSTICO = Console.ReadLine();
-				escribir.WriteLine("DIgnostico: " + Pacientes[NRO].DIAGNOSTICO);
-
+				escribir.WriteLine("");
+				escribir.WriteLine(Pacientes[NRO].CEDULA + "," + Pacientes[NRO].NOMBRE + "," + Pacientes[NRO].TEL + "," + Pacientes[NRO].SEXO + "," + Pacientes[NRO].DIAGNOSTICO);
 
 				NRO = NRO + 1;
-				
+
+
+
 				do
 				{
 					System.Console.SetCursorPosition(28, 23); Console.WriteLine("DESEA CONTINUAR - S/N - ");
 					System.Console.SetCursorPosition(52, 23); OP = char.Parse(Console.ReadLine());
-					
-					
+
+
 				} while ((OP != 'S') && (OP != 'N'));
 
-				
+
+
 			}
-			
 			escribir.Close();
 		}
 
 		static void CONSULTA_LISTADO()
 		{
-			int F, K;
-			StreamReader LEcTURA;
-			String cadena;
-			
-			LEcTURA = File.OpenText("datos.txt");
-			if (NRO == 0)
+			using (StreamReader leer = new StreamReader("datos.txt"))
+				
 			{
-				System.Console.SetCursorPosition(20, 24); Console.WriteLine("No hay datos ");
-				Console.ReadKey();
-			}
-			else
-			{
-				F = 11;
-				DETALLE();
-				for (K = 0; K < NRO; K++)
-				{
-					
-					System.Console.SetCursorPosition(12, F); Console.WriteLine(Pacientes[K].CEDULA);
-					System.Console.SetCursorPosition(24, F); Console.WriteLine(Pacientes[K].NOMBRE);
-					System.Console.SetCursorPosition(55, F); Console.WriteLine(Pacientes[K].TEL);
-					System.Console.SetCursorPosition(68, F); Console.WriteLine(Pacientes[K].SEXO);
-					System.Console.SetCursorPosition(76, F); Console.WriteLine(Pacientes[K].DIAGNOSTICO);
-					if (F <= 24)
-						F++;
-					else
-					{
-						System.Console.SetCursorPosition(21, F += 3); Console.WriteLine("Pulse Cualquier tecla para Continuar");
-						Console.ReadKey();
-						F = 11;
-						DETALLE();
-					}
-				}
-				System.Console.SetCursorPosition(21, F += 3); Console.WriteLine("Pulse Cualquier tecla para Continuar");
-				Console.ReadKey();
-			}LEcTURA.Close();
-		}
-		static void CONSULTA_SELECTIVA()
-		{
-			long CED;
-			int K, SW;
-			char OPCION = 'S';
-			if (NRO == 0)
-			{
-				System.Console.SetCursorPosition(20, 22); Console.WriteLine("No hay datos ");
-				Console.ReadKey();
-			}
-			else
-			{
-				while (OPCION == 'S')
-				{
-					Console.Clear();
-					System.Console.SetCursorPosition(29, 5); Console.WriteLine("REGISTRO MEDICO");
-					System.Console.SetCursorPosition(31, 7); Console.WriteLine("BUSQUEDA SELECTIVA");
-					System.Console.SetCursorPosition(25, 11); Console.WriteLine("CEDULA    : ");
-					do
-					{
-						System.Console.SetCursorPosition(37, 11); CED = long.Parse(Console.ReadLine());
-						System.Console.SetCursorPosition(20, 24); Console.WriteLine("Error .... valor fuera de rango ");
-					} while (CED < 0);
-					System.Console.SetCursorPosition(20, 24); Console.WriteLine("                                   ");
-					SW = 0;
-					for (K = 0; K < NRO && SW == 0; K++)
-						if (CED == Pacientes[K].CEDULA)
-						{
-							SW = 1;
-							System.Console.SetCursorPosition(25, 13); Console.WriteLine("NOMBRE    = " + Pacientes[K].NOMBRE);
-							System.Console.SetCursorPosition(25, 15); Console.WriteLine("TELEFONO  = " + Pacientes[K].TEL);
-							System.Console.SetCursorPosition(25, 17); Console.WriteLine("SEXO      = " + Pacientes[K].SEXO);
-							System.Console.SetCursorPosition(25, 19); Console.WriteLine("SEXO      = " + Pacientes[K].DIAGNOSTICO);
-						}
-					if (SW == 0)
-					{
-						System.Console.SetCursorPosition(50, 11); Console.WriteLine("NO EXISTE REGISTRO");
-					}
-					do
-					{
-						System.Console.SetCursorPosition(28, 22); Console.WriteLine("DESEA CONTINUAR - S/N - ");
-						System.Console.SetCursorPosition(52, 22); OPCION = char.Parse(Console.ReadLine());
 
-					} while ((OPCION != 'S') && (OPCION != 'N'));
+				System.Console.SetCursorPosition(0, 28); Console.WriteLine("REGISTRO DE PACIENTES");
+				System.Console.SetCursorPosition(0, 29); Console.WriteLine("CEDULA    NOMBRE    TELEFONO   SEXO    DIAGNOSTICO");
+				while (!leer.EndOfStream) 
+				{
+					string x = leer.ReadLine();
+					
+					Console.WriteLine(x);
 				}
+				Console.ReadKey();
 			}
+            
 		}
+
+		
 		static void MODIFICAR()
 		{
 			int K, SW, TEL;
 			char cambiar, OPCION = 'S';
 			string NOMBRE, DIAG;
 			char SEXO;
-			long CED;
+			string CED;
+			TextWriter escribir;
+			escribir = new StreamWriter("datosMOD.txt");
 			if (NRO == 0)
 			{
 				System.Console.SetCursorPosition(20, 24); Console.WriteLine("No hay datos ");
@@ -280,13 +227,9 @@ namespace Modelodelparcial
 					System.Console.SetCursorPosition(36, 6); Console.WriteLine("MODIFICAR");
 					System.Console.SetCursorPosition(20, 11); Console.WriteLine("CEDULA   : ");
 
-					do
-					{
-						System.Console.SetCursorPosition(31, 11); CED = long.Parse(Console.ReadLine());
+					System.Console.SetCursorPosition(31, 11); CED = (Console.ReadLine());
 
-						System.Console.SetCursorPosition(20, 24); Console.WriteLine("Error .... valor fuera de rango ");
-					} while ((CED < 0) || (CED > 2147483640));
-					System.Console.SetCursorPosition(20, 24); Console.WriteLine("                                   ");
+
 					SW = 0;
 					for (K = 0; K < NRO && SW == 0; K++)
 						if (CED == Pacientes[K].CEDULA)
@@ -334,101 +277,94 @@ namespace Modelodelparcial
 					{
 						System.Console.SetCursorPosition(50, 18); Console.WriteLine("NO EXISTE REGISTRO");
 					}
+					
 					do
 					{
 						System.Console.SetCursorPosition(28, 24); Console.WriteLine("DESEA CONTINUAR - S/N - ");
 						System.Console.SetCursorPosition(52, 24); OPCION = char.Parse(Console.ReadLine());
 					} while ((OPCION != 'S') && (OPCION != 'N'));
-				}
+				}escribir.Close();
+				File.Delete("datos.txt");
+				File.Move("datosMOD.txt", "datos.txt");
 			}
 		}
 
 		static void ELIMINAR()
-		
+
 		{
 			char OP = 'S';
-			long CED;
+			string CED;
 			int K, W, SW;
-			StreamWriter escribir = File.AppendText("tempo.txt");
+			string cadena, cadena1;
+			StreamReader lectura = File.OpenText("datos.txt");
+			StreamWriter escribir = File.CreateText("tempo.txt");
+			bool encontrado;
+			encontrado = false;
+			String[] campos = new string[5];
+			char[] separador = { ',' };
+			
 			while ((OP == 'S'))
-				
+
 			{
-				if (NRO == 0)
-				{
-					System.Console.SetCursorPosition(20, 24); Console.WriteLine("No hay datos                        ");
-					OP = 'N';
-					Console.ReadKey();
-				}
-				else
-				{
+				
+				
 					Console.Clear();
 					System.Console.SetCursorPosition(29, 5); Console.WriteLine("REGISTRO MEDICO");
 					System.Console.SetCursorPosition(36, 7); Console.WriteLine("ELMINAR PACIENTE");
 					System.Console.SetCursorPosition(25, 11); Console.WriteLine("CEDULA    : ");
-					do
+					System.Console.SetCursorPosition(37, 11); CED = (Console.ReadLine());
+				cadena = lectura.ReadLine();
+
+				while (cadena != null)
 					{
-						System.Console.SetCursorPosition(37, 11); CED = long.Parse(Console.ReadLine());
-						System.Console.SetCursorPosition(20, 24); Console.WriteLine("Error .... valor fuera de rango ");
-					} while (CED < 0);
-					System.Console.SetCursorPosition(20, 24); Console.WriteLine("                                      ");
-					SW = 0;
-					for (K = 0; K < NRO && SW == 0; K++)
-						if (CED == Pacientes[K].CEDULA)
+						campos = cadena.Split(separador);
+						if (campos[0].Trim().Equals(CED))
 						{
-							System.Console.SetCursorPosition(25, 13); Console.WriteLine("NOMBRE    = " + Pacientes[K].NOMBRE);
-							System.Console.SetCursorPosition(25, 15); Console.WriteLine("TELEFONO  = " + Pacientes[K].TEL);
-							System.Console.SetCursorPosition(25, 17); Console.WriteLine("SEXO      = " + Pacientes[K].SEXO);
-							System.Console.SetCursorPosition(25, 19); Console.WriteLine("DIAGNOSTICO      = " + Pacientes[K].DIAGNOSTICO);
-							SW = 1;
-							for (W = K; W < NRO; W++)
-							{
-								escribir.WriteLine("REGISTRO PACIENTE" + (W - 1));
-								Pacientes[W].CEDULA = Pacientes[W + 1].CEDULA;
-								Pacientes[W].NOMBRE = Pacientes[W + 1].NOMBRE;
-								Pacientes[W].TEL = Pacientes[W + 1].TEL;
-								Pacientes[W].SEXO = Pacientes[W + 1].SEXO;
-								Pacientes[W].DIAGNOSTICO = Pacientes[W + 1].DIAGNOSTICO;
-								escribir.WriteLine("CEDULA: "+Pacientes[W-1].CEDULA);
-								escribir.WriteLine("NOMBRE: " + Pacientes[W-1].NOMBRE);
-								escribir.WriteLine("TELEFONO: " + Pacientes[W-1].TEL);
-								escribir.WriteLine("SEXO: " + Pacientes[W-1].SEXO);
-								escribir.WriteLine("DIAGNOSTICO: " + Pacientes[W-1].DIAGNOSTICO);
-							}
-							NRO = NRO - 1;
-							System.Console.SetCursorPosition(50, 11); Console.WriteLine("Elemento Eliminado");
-							
+
+							encontrado = true;
 
 						}
-					if (SW == 0)
-					{
-						System.Console.SetCursorPosition(50, 11); Console.WriteLine("NO EXISTE REGISTRO");
+						else
+						{
+							escribir.WriteLine(cadena);
+						}
+						cadena = lectura.ReadLine();
 					}
-					do
-					{
-						System.Console.SetCursorPosition(28, 24); Console.WriteLine("DESEA CONTINUAR - S/N - ");
-						System.Console.SetCursorPosition(52, 24); OP = char.Parse(Console.ReadLine());
 
-					} while ((OP != 'S') && (OP != 'N'));
-					escribir.Close();
-					File.Delete("datos.txt");
-					File.Move("tempo.txt", "datos.txt");
-				}
+						if (encontrado == false)
+						{
+							Console.WriteLine("el paciente de cedula: " + CED + "no se encuentra");
+						}
+
+
+						do
+						{
+							System.Console.SetCursorPosition(28, 24); Console.WriteLine("DESEA CONTINUAR - S/N - ");
+							System.Console.SetCursorPosition(52, 24); OP = char.Parse(Console.ReadLine());
+
+						} while ((OP != 'S') && (OP != 'N'));
+						lectura.Close();
+						escribir.Close();
+						File.Delete("datos.txt");
+						File.Move("tempo.txt", "datos.txt");
+					}
+					Console.ReadKey(true);
 				
+
+			   
 			}
-			
-		}
-		static void DETALLE()
-		{
-			Console.Clear();
-			System.Console.SetCursorPosition(38, 3); Console.WriteLine("REGISTRO MEDICO");
-			System.Console.SetCursorPosition(30, 5); Console.WriteLine("LISTA DE PACIENTES REGISTRADOS");
-			System.Console.SetCursorPosition(12, 9); Console.WriteLine("CEDULA      NOMBRE                         TELEFONO     SEXO    DIAGNOSTICO ");
+			static void DETALLE()
+			{
+				Console.Clear();
+				System.Console.SetCursorPosition(38, 3); Console.WriteLine("REGISTRO MEDICO");
+				System.Console.SetCursorPosition(30, 5); Console.WriteLine("LISTA DE PACIENTES REGISTRADOS");
+				System.Console.SetCursorPosition(12, 9); Console.WriteLine("CEDULA      NOMBRE                         TELEFONO     SEXO    DIAGNOSTICO ");
+			}
+
+
+
 		}
 
-		
+
 
 	}
-
-	                   
-
-}
