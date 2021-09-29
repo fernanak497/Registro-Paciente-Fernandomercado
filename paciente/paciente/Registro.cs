@@ -191,7 +191,7 @@ namespace Modelodelparcial
 			{
 
 				System.Console.SetCursorPosition(0, 28); Console.WriteLine("REGISTRO DE PACIENTES");
-				System.Console.SetCursorPosition(0, 29); Console.WriteLine("CEDULA    NOMBRE    TELEFONO   SEXO    DIAGNOSTICO");
+				System.Console.SetCursorPosition(0, 29); Console.WriteLine("CEDULA,NOMBRE,TELEFONO,SEXO,DIAGNOSTICO");
 				while (!leer.EndOfStream) 
 				{
 					string x = leer.ReadLine();
@@ -303,9 +303,7 @@ namespace Modelodelparcial
 			String[] campos = new string[5];
 			char[] separador = { ',' };
 			
-			while ((OP == 'S'))
-
-			{
+			
 				
 				
 					Console.Clear();
@@ -329,25 +327,24 @@ namespace Modelodelparcial
 							escribir.WriteLine(cadena);
 						}
 						cadena = lectura.ReadLine();
-					}
+					    }
 
 						if (encontrado == false)
 						{
 							Console.WriteLine("el paciente de cedula: " + CED + "no se encuentra");
-						}
+                         }
+                        else
+                        {
+			           	Console.WriteLine("el paciente de cedula: " + CED + " se ha eliminado");
+			             }
+						   
 
-
-						do
-						{
-							System.Console.SetCursorPosition(28, 24); Console.WriteLine("DESEA CONTINUAR - S/N - ");
-							System.Console.SetCursorPosition(52, 24); OP = char.Parse(Console.ReadLine());
-
-						} while ((OP != 'S') && (OP != 'N'));
+						
 						lectura.Close();
 						escribir.Close();
 						File.Delete("datos.txt");
 						File.Move("tempo.txt", "datos.txt");
-					}
+					
 					Console.ReadKey(true);
 				
 
